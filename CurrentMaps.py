@@ -3,7 +3,7 @@ import arcpy, os, shutil, time, subprocess,time
 
 
 # Set your lyrx folder, output folder, and SQL table
-lyrx_folder = r"C:\Users\bjharris\Desktop\Maps\DV_Layers"
+lyrx_folder = r"C:\Users\bjharris\Desktop\Maps\Layers"
 output_folder = r"C:\Users\bjharris\Desktop\Maps\Automated_maps"
 
 # Defined fixed extents for each layout
@@ -30,7 +30,7 @@ def export_layout_as_png(layout, output_path):
 # Function to add layer to map and export layout
 def process_lyr(lyr_file, lyr_name):
     #  Map project
-    aprx = arcpy.mp.ArcGISProject(r"O:\ArcPro\This\DV_Map\DV.aprx")
+    aprx = arcpy.mp.ArcGISProject(r"C:\Users\bjharris\Desktop\Maps\Base.aprx")
     map = aprx.listMaps()[0]  # Assuming only one map exists in the project
 
     # Add layer to map
