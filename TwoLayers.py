@@ -3,7 +3,7 @@ import arcpy, os, shutil, time, subprocess,time
 
 
 # Set your lyrx folder, output folder, and SQL table
-lyrx_folder = r"C:\Users\bjharris\Desktop\Maps\Layers"
+lyrx_folder = r"C:\Users\bjharris\Desktop\Maps\two_layers"
 output_folder = r"C:\Users\bjharris\Desktop\Maps\Automated_maps"
 
 # Defined fixed extents for each layout
@@ -30,11 +30,12 @@ def export_layout_as_png(layout, output_path):
 # Function to add layer to map and export layout
 def process_lyr(lyrx_file, lyr_name):
     #  Map project
-    aprx = arcpy.mp.ArcGISProject(r"C:\Users\bjharris\Desktop\Maps\Base.aprx")
+    aprx = arcpy.mp.ArcGISProject(r"C:\Users\bjharris\Desktop\Maps\Xtra.aprx")
     map = aprx.listMaps()[0]  # Assuming only one map exists in the project
-
+    extra = map.listLayers("Extra Patrols (Crime/Initiative Week)")[0]
     # Add layer to map
     lyr = map.addDataFromPath(os.path.join(lyrx_folder, lyrx_file))
+    map.insertLayer(extra, lyr,"AFTER")
     
     # Ensure layer visibility
     lyr.visible = True

@@ -1,6 +1,8 @@
 import arcpy,datetime,os,shutil,subprocess,time
 from arcpy import env
 from arcpy.sa import *
+
+
 arcpy.CheckOutExtension("spatial")
 subprocess.call('sqlcmd -S pdrmscvpr16 -d sandbox -Q "exec dbo.sp_8wk_HotSpots"')
 
@@ -22,20 +24,21 @@ arcpy.env.overwriteOutput = True
 arcpy.env.workspace = thegdb
 arcpy.env.scratchWorkspace = thegdb
 arcpy.env.extent = "1656911.98574869 596061.18018044 1819512.79034007 755283.98753397"
-templatelyr = r"C:\Automated_Maps_Projects\Rolling_8wk\Template.lyrx" #standardized grid layer with 10 classes gray to red
+templatelyr = r"C:\Automated_Maps_Projects\Rolling_8wk\Template.lyrx" 
 
 print('Grid Shading Template: '+templatelyr)
 
 sandbox = "C:\\Users\\bjharris\\Desktop\\Python Project Source\\Auto Map Projects\\Automated_Maps_Projects\\Rolling_8wk\\pdrmscvpr16_sandbox.sde\\"
 #layout_extent = arcpy.env.extent = (1656911.98574869, 596061.18018044, 1819512.79034007, 755283.98753397)
- 
+
+
 def customize_title(layer_name):
     custom_titles = {
         "Agg_Assault_Prv_4wks": "MNPD Aggravated Assault \n 1 Mile Kernel Density",
         "Comm_Burglary_Prv_4wks": "MNPD Commercial Burglary \n 1 Mile Kernel Density",
         "Comm_Robbery_Prv_4wks": "MNPD Commercial Robbery \n 1 Mile Kernel Density",
         "MVT_Prv_4wks": "MNPD Motor Vehicle Theft \n 1 Mile Kernel Density",
-        "Res_Burglary_Prv_4wks": "MNPD Residenital Burglary \n 1 Mile Kernel Density",
+        "Res_Burglary_Prv_4wks": "MNPD Residential Burglary \n 1 Mile Kernel Density",
         "Str_Robbery_Prv_4wks": "MNPD Street Robbery \n 1 Mile Kernel Density",
         "Theft_From_MV_Prv_4wks": "MNPD Theft From Motor Vehicle \n 1 Mile Kernel Density"
     }
@@ -78,20 +81,21 @@ def export_layout_to_pdf(aprx,layout_name, outputfolder, output_name):
     print(f"Exported layout to: {pdf_export_path}")
 
 
-vallist = [ 'Agg_Assault_Pst_4wks'
-           ,'Agg_Assault_Prv_4wks' 
-           ,'Comm_Burglary_Pst_4wks'
-           ,'Comm_Burglary_Prv_4wks'
-           ,'Comm_Robbery_Pst_4wks'
-          ,'Comm_Robbery_Prv_4wks'
-           ,'MVT_Pst_4wks'
-           ,'MVT_Prv_4wks'
-           ,'Res_Burglary_Pst_4wks'
-           ,'Res_Burglary_Prv_4wks'
-           ,'Str_Robbery_Pst_4wks'
-           ,'Str_Robbery_Prv_4wks'
-           ,'Theft_From_MV_Pst_4wks'
-           ,'Theft_From_MV_Prv_4wks'
+vallist = ['Comm_Robbery_Pst_4wks'
+          ,'Comm_Robbery_Prv_4wks' 
+          ,'Str_Robbery_Pst_4wks'
+          ,'Str_Robbery_Prv_4wks'
+          ,'Agg_Assault_Pst_4wks'
+          ,'Agg_Assault_Prv_4wks' 
+          ,'Comm_Burglary_Pst_4wks'
+          ,'Comm_Burglary_Prv_4wks'
+          ,'Res_Burglary_Pst_4wks'
+          ,'Res_Burglary_Prv_4wks'
+          ,'Theft_From_MV_Pst_4wks'
+          ,'Theft_From_MV_Prv_4wks'
+          ,'MVT_Pst_4wks'
+          ,'MVT_Prv_4wks'
+                   
 ]
 
 
@@ -191,4 +195,6 @@ for left_layer,right_layer in zip(left_layers, right_layers):
         mr.removeLayer(mr.listLayers()[-1])
         
         time.sleep(1)
+
+
 print("This is the end. Good Day.")
