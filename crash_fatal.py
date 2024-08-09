@@ -81,7 +81,7 @@ for lyt in aprx.listLayouts():
         print(sql)
                         #print('start sleep '+layout.name)
                         #time.sleep(1)
-        subprocess.call('sqlcmd -S pdrmscvpr16 -d sddca -Q '+sql)
+        subprocess.call('sqlcmd -S pdrmscvpr16 -d sandbox -Q '+sql)
                         #print('end sleep '+layout.name)
 
 
